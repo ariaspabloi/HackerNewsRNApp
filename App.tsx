@@ -1,8 +1,13 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {Home} from './app/presentation/views/Home/Home';
+import {StackNavigator} from './app/presentation/navigation/stackNavigator';
 
 function App(): React.JSX.Element {
-  return <Home />;
+  return (
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
+  );
 }
 
 export default App;
