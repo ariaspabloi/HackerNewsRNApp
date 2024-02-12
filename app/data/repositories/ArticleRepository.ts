@@ -15,13 +15,16 @@ class ArticleRepository {
   ) {}
 
   async getArticles(): Promise<ArticleResponse[]> {
-    let articles: ArticleResponse[];
+    let articles: ArticleResponse[] = [];
     try {
       const remoteData = await this.remote.getArticles();
       articles = remoteData.hits;
       this.local.setArticles(articles);
     } catch (error) {
       articles = await this.local.getArticles();
+    } finally {
+      const removedIds = await this.local.getRemovedArticlesIds();
+      articles = articles.filter(article => removedIds.has(article.objectID));
     }
     return articles;
   }

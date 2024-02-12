@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ArticleResponse} from '../entities/hnApiResponses';
+import {ArticleId, ArticleResponse} from '../entities/hnApiResponses';
 
 class ArticleLocalDataSource {
   async setArticles(articles: ArticleResponse[]) {
@@ -20,6 +20,34 @@ class ArticleLocalDataSource {
     } catch (error) {
       console.log('error fetching articles from local datasource', error);
       return [] as ArticleResponse[];
+    }
+  }
+
+  async saveRemovedArticleIds(removedArticleIds: Set<ArticleId>) {
+    try {
+      const removedArticleIdsArray = Array.from(removedArticleIds);
+      await AsyncStorage.setItem(
+        'removedArticleIds',
+        JSON.stringify(removedArticleIdsArray),
+      );
+    } catch (error) {
+      console.error('error saving removed article IDs to local storage', error);
+    }
+  }
+
+  async getRemovedArticlesIds(): Promise<Set<ArticleId>> {
+    try {
+      const removed = await AsyncStorage.getItem('removedArticles');
+      if (!removed) {
+        return new Set<ArticleId>();
+      }
+      return new Set<ArticleId>(JSON.parse(removed));
+    } catch (error) {
+      console.error(
+        'error fetching removed articles from local datasource',
+        error,
+      );
+      return new Set<ArticleId>();
     }
   }
 }
