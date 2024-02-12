@@ -6,7 +6,7 @@ import {
   ArticleRemoteDataSourceType,
   articleRemoteDataSource,
 } from '../dataSources/ArticleRemoteDataSource';
-import {ArticleResponse} from '../entities/hnApiResponses';
+import {ArticleId, ArticleResponse} from '../entities/hnApiResponses';
 
 class ArticleRepository {
   constructor(
@@ -15,18 +15,36 @@ class ArticleRepository {
   ) {}
 
   async getArticles(): Promise<ArticleResponse[]> {
-    let articles: ArticleResponse[] = [];
+    let articles: ArticleResponse[];
     try {
-      const remoteData = await this.remote.getArticles();
-      articles = remoteData.hits;
+      const {hits} = await this.remote.getArticles();
+      const removedIds = await this.local.getRemovedArticlesIds();
+      articles = hits.filter(article => removedIds.has(article.objectID));
       this.local.setArticles(articles);
     } catch (error) {
       articles = await this.local.getArticles();
-    } finally {
-      const removedIds = await this.local.getRemovedArticlesIds();
-      articles = articles.filter(article => removedIds.has(article.objectID));
     }
     return articles;
+  }
+
+  async addRemovedId(id: ArticleId) {
+    try {
+      const removedIds = await this.local.getRemovedArticlesIds();
+      removedIds.add(id);
+      this.local.saveRemovedArticleIds(removedIds);
+
+      let articles = await this.local.getArticles();
+
+      const indexToRemove = articles.findIndex(
+        article => article.objectID === id,
+      );
+      if (indexToRemove !== -1) {
+        articles.splice(indexToRemove, 1);
+        await this.local.setArticles(articles);
+      }
+    } catch (error) {
+      console.log('error adding removing id', error);
+    }
   }
 }
 
