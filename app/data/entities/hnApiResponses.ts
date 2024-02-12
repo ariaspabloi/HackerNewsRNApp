@@ -2,7 +2,7 @@ export interface HackerNewsResponse {
   exhaustive: Exhaustive;
   exhaustiveNbHits: boolean;
   exhaustiveTypo: boolean;
-  hits: Article[];
+  hits: ArticleResponse[];
   hitsPerPage: number;
   nbHits: number;
   nbPages: number;
@@ -19,7 +19,7 @@ export interface Exhaustive {
   typo: boolean;
 }
 
-export interface Article {
+export interface ArticleResponse {
   _highlightResult: HighlightResult;
   _tags: string[];
   author: string;

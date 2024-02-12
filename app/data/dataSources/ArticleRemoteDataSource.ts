@@ -12,3 +12,6 @@ class ArticleRemoteDataSource {
 }
 
 export const articleRemoteDataSource = new ArticleRemoteDataSource();
+export type ArticleRemoteDataSourceType = InstanceType<
+  typeof ArticleRemoteDataSource
+>;
