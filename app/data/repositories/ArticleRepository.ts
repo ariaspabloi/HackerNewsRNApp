@@ -1,3 +1,4 @@
+import {Article} from '../../domain/entities/article';
 import {
   ArticleLocalDataSourceType,
   articleLocalDataSource,
@@ -6,8 +7,7 @@ import {
   ArticleRemoteDataSourceType,
   articleRemoteDataSource,
 } from '../dataSources/ArticleRemoteDataSource';
-import {Article} from '../../domain/entities/article';
-import {ArticleId, ArticleResponse} from '../entities/hnApiResponses';
+import {ArticleResponse} from '../entities/hnApiResponses';
 
 class ArticleRepository {
   constructor(
@@ -20,10 +20,11 @@ class ArticleRepository {
     try {
       const {hits} = await this.remote.getArticles();
       const removedIds = await this.local.getRemovedArticlesIds();
-      articlesResponse = hits.filter(article =>
-        removedIds.has(article.objectID),
+      articlesResponse = hits.filter(
+        article => !removedIds.has(article.objectID),
       );
       this.local.setArticles(articlesResponse);
+      console.log('hits length', hits.length);
     } catch (error) {
       articlesResponse = await this.local.getArticles();
     }
@@ -31,7 +32,7 @@ class ArticleRepository {
     return articles;
   }
 
-  async addRemovedId(id: ArticleId) {
+  async addRemovedId(id: string) {
     try {
       const removedIds = await this.local.getRemovedArticlesIds();
       removedIds.add(id);

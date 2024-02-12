@@ -12,9 +12,17 @@ const Stack = createStackNavigator<RootStackParams>();
 
 export const StackNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="HomeView" component={HomeView} />
-      <Stack.Screen name="WebPageView" component={WebPageView} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="HomeView"
+        component={HomeView}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="WebPageView"
+        component={WebPageView}
+        options={{title: ''}}
+      />
     </Stack.Navigator>
   );
 };
