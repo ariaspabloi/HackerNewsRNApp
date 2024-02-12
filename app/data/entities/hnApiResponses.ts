@@ -29,7 +29,8 @@ export interface ArticleResponse {
   objectID: ArticleId;
   parent_id: number;
   story_id: number;
-  story_title: string;
+  story_title?: string;
+  title: string;
   story_url?: string;
   updated_at: string;
   children?: number[];

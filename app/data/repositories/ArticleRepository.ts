@@ -6,24 +6,28 @@ import {
   ArticleRemoteDataSourceType,
   articleRemoteDataSource,
 } from '../dataSources/ArticleRemoteDataSource';
+import {Article} from '../../domain/entities/article';
 import {ArticleId, ArticleResponse} from '../entities/hnApiResponses';
 
 class ArticleRepository {
   constructor(
-    private remote: ArticleRemoteDataSourceType,
-    private local: ArticleLocalDataSourceType,
+    private readonly remote: ArticleRemoteDataSourceType,
+    private readonly local: ArticleLocalDataSourceType,
   ) {}
 
-  async getArticles(): Promise<ArticleResponse[]> {
-    let articles: ArticleResponse[];
+  async getArticles(): Promise<Article[]> {
+    let articlesResponse: ArticleResponse[];
     try {
       const {hits} = await this.remote.getArticles();
       const removedIds = await this.local.getRemovedArticlesIds();
-      articles = hits.filter(article => removedIds.has(article.objectID));
-      this.local.setArticles(articles);
+      articlesResponse = hits.filter(article =>
+        removedIds.has(article.objectID),
+      );
+      this.local.setArticles(articlesResponse);
     } catch (error) {
-      articles = await this.local.getArticles();
+      articlesResponse = await this.local.getArticles();
     }
+    const articles = articlesResponse.map(article => this.transform(article));
     return articles;
   }
 
@@ -46,9 +50,22 @@ class ArticleRepository {
       console.log('error adding removing id', error);
     }
   }
+
+  private transform(response: ArticleResponse): Article {
+    return {
+      author: response.author,
+      created_at_i: response.created_at_i,
+      objectID: response.objectID,
+      story_title: response.story_title,
+      title: response.title,
+      story_url: response.story_url,
+    };
+  }
 }
 
 export const articleRepository = new ArticleRepository(
   articleRemoteDataSource,
   articleLocalDataSource,
 );
+
+export type ArticleRepositoryType = InstanceType<typeof ArticleRepository>;
