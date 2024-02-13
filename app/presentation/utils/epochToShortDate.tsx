@@ -1,39 +1,28 @@
 export default function epochToShortDate(epoch: number): string {
-  const date = new Date(epoch);
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
+  const paddedEpoch =
+    String(epoch).length < 13 ? Number(String(epoch).padEnd(13, '0')) : epoch;
 
-  const oneDay = 24 * 60 * 60 * 1000;
+  const now = new Date().getTime();
+  const inputTime = new Date(paddedEpoch).getTime();
+  const differenceInSeconds = Math.floor((now - inputTime) / 1000);
+  const differenceInMinutes = Math.floor(differenceInSeconds / 60);
+  const differenceInHours = Math.floor(differenceInMinutes / 60);
+  const differenceInDays = Math.floor(differenceInHours / 24);
 
-  const formatTime = (d: Date) => {
-    let hours = d.getHours();
-    let minutes = d.getMinutes();
-    const ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    const minutesString = minutes < 10 ? '0' + minutes : minutes;
-    return `${hours}:${minutesString} ${ampm}`;
-  };
-
-  if (diff < oneDay) {
-    return formatTime(date);
-  } else if (diff < 2 * oneDay && now.getDate() !== date.getDate()) {
+  if (differenceInSeconds < 60) {
+    return `${differenceInSeconds}s`;
+  } else if (differenceInMinutes < 60) {
+    return `${differenceInMinutes}m`;
+  } else if (differenceInHours < 24) {
+    return `${differenceInHours}h`;
+  } else if (differenceInDays === 1) {
     return 'Yesterday';
+  } else if (differenceInDays > 1) {
+    const date = new Date(paddedEpoch);
+    const month = date.toLocaleString('default', {month: 'short'});
+    const day = date.getDate();
+    return `${month} ${day}`;
   } else {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return `${months[date.getMonth()]} ${date.getDate()}`;
+    return 'Invalid date';
   }
 }
