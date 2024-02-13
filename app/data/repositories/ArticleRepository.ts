@@ -16,10 +16,10 @@ class ArticleRepository {
   ) {}
 
   async getArticles(): Promise<Article[]> {
+    const removedIds = await this.local.getRemovedArticlesIds();
     let articles: Article[];
     try {
       const {hits} = await this.remote.getArticles();
-      const removedIds = await this.local.getRemovedArticlesIds();
       const articlesResponse = hits.filter(
         article => !removedIds.has(article.objectID),
       );
@@ -28,6 +28,7 @@ class ArticleRepository {
       this.local.setArticles(articles);
     } catch (error) {
       articles = await this.local.getArticles();
+      articles = articles.filter(article => !removedIds.has(article.objectID));
     }
     return articles;
   }
@@ -36,17 +37,7 @@ class ArticleRepository {
     try {
       const removedIds = await this.local.getRemovedArticlesIds();
       removedIds.add(id);
-      this.local.saveRemovedArticleIds(removedIds);
-
-      let articles = await this.local.getArticles();
-
-      const indexToRemove = articles.findIndex(
-        article => article.objectID === id,
-      );
-      if (indexToRemove !== -1) {
-        articles.splice(indexToRemove, 1);
-        await this.local.setArticles(articles);
-      }
+      this.local.saveRemovedArticlesIds(removedIds);
     } catch (error) {
       console.log('error adding removing id', error);
     }

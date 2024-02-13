@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useRef} from 'react';
+import React, {memo, useCallback, useEffect, useRef} from 'react';
 
 import {StackScreenProps} from '@react-navigation/stack';
 import {FlatList, StyleSheet, View} from 'react-native';
@@ -18,8 +18,17 @@ const FooterComponent = memo(() => <View style={styles.footer} />);
 
 export const HomeView = ({navigation}: Props) => {
   const flatListRef = useRef<FlatList<Article>>(null);
-  const {isLoading, articles, getArticles, removeArticleById} =
+  const {isLoading, articles, getArticles, removeArticleById, errorMessage} =
     useHomeViewModel();
+
+  useEffect(() => {
+    if (errorMessage) {
+      Toast.show({
+        type: 'error',
+        text1: errorMessage,
+      });
+    }
+  }, [errorMessage]);
 
   const onClickNavigate = useCallback(
     (uri: string) => {
