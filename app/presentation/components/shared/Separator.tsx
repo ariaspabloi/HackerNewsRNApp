@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {listDividerStyle} from '../../theme/element-styles/dividerStyles';
+import {gray} from '../../theme/colors';
 
 export const Separator = () => {
   return <View style={styles.separator} />;
@@ -8,6 +8,9 @@ export const Separator = () => {
 
 const styles = StyleSheet.create({
   separator: {
-    ...(listDividerStyle as object),
+    borderWidth: 0.4,
+    borderColor: gray(0.6),
+    borderStyle: 'solid',
+    shadowOpacity: 0,
   },
 });

@@ -2,8 +2,8 @@ import React, {useRef} from 'react';
 
 import {StyleSheet, View} from 'react-native';
 import {Swipeable, TouchableOpacity} from 'react-native-gesture-handler';
-import {danger, secondary} from '../../theme/colors';
-import {DeleteIcon} from '../icons/DeleteIcon';
+import {danger, secondary} from '../../../theme/colors';
+import {DeleteIcon} from '../../icons/DeleteIcon';
 import {SwipeableContainer} from './SwipeableContainer';
 
 type Props = {

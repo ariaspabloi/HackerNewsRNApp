@@ -1,6 +1,8 @@
-import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
+
+import {StackScreenProps} from '@react-navigation/stack';
 import WebView from 'react-native-webview';
+
 import {RootStackParams} from '../../navigation/stackNavigator';
 
 interface Props extends StackScreenProps<RootStackParams, 'WebPageView'> {}

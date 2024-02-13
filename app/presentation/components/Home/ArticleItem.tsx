@@ -7,7 +7,7 @@ import {
   cardHeadingFontStyle,
   cardParagraphFontStyle,
 } from '../../theme/element-styles/textStyles';
-import {SwipeableRemovalContainer} from '../shared/SwipeableRemovalContainer';
+import {SwipeableRemovalContainer} from '../shared/Swipeable/SwipeableRemovalContainer';
 
 type Props = {
   article: Article;
