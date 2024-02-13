@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Article} from '../../../domain/entities/article';
 import epochToShortDate from '../../../utils/epochToShortDate';
+import {primary} from '../../theme/colors';
 import {
   cardHeadingFontStyle,
   cardParagraphFontStyle,
@@ -35,7 +36,7 @@ export const ArticleItem = ({article, remove, navigate}: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: primary(true),
     paddingLeft: 18,
     paddingRight: 35,
     paddingVertical: 18,

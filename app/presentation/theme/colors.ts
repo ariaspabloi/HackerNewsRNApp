@@ -11,6 +11,8 @@ export function gray(opacity: number = 1.0): string {
   return `rgba(56,56,56, ${opacity})`;
 }
 
+export const danger = 'rgb(220, 53, 69)';
+
 const dark = {
   primary: '#fffffe',
   secondary: '#222525',
