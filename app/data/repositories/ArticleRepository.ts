@@ -16,19 +16,18 @@ class ArticleRepository {
   ) {}
 
   async getArticles(): Promise<Article[]> {
-    let articlesResponse: ArticleResponse[];
+    let articles: Article[];
     try {
       const {hits} = await this.remote.getArticles();
       const removedIds = await this.local.getRemovedArticlesIds();
-      articlesResponse = hits.filter(
+      const articlesResponse = hits.filter(
         article => !removedIds.has(article.objectID),
       );
-      this.local.setArticles(articlesResponse);
-      console.log('hits length', hits.length);
+      articles = articlesResponse.map(article => this.transform(article));
+      this.local.setArticles(articles);
     } catch (error) {
-      articlesResponse = await this.local.getArticles();
+      articles = await this.local.getArticles();
     }
-    const articles = articlesResponse.map(article => this.transform(article));
     return articles;
   }
 
