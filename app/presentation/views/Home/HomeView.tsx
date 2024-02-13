@@ -3,7 +3,9 @@ import React, {useCallback} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {Article} from '../../../domain/entities/article';
 import {ArticleItem} from '../../components/Home/ArticleItem';
+import {Separator} from '../../components/shared/Separator';
 import {RootStackParams} from '../../navigation/stackNavigator';
+import {containerStyle} from '../../theme/element-styles/screenStyles';
 import {useHomeViewModel} from '../../viewModels/useHomeViewModel';
 
 interface Props extends StackScreenProps<RootStackParams, 'HomeView'> {}
@@ -28,7 +30,7 @@ export const HomeView = ({navigation}: Props) => {
     [removeArticleById, navigate],
   );
 
-  const separator = () => <View style={styles.separator} />;
+  const separator = () => <Separator />;
 
   return (
     <View style={styles.container}>
@@ -46,7 +48,6 @@ export const HomeView = ({navigation}: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    ...(containerStyle as object),
   },
-  separator: {marginVertical: 12},
 });

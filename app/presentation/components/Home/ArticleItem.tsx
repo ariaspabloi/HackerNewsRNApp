@@ -2,6 +2,10 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Article} from '../../../domain/entities/article';
 import epochToShortDate from '../../../utils/epochToShortDate';
+import {
+  cardHeadingFontStyle,
+  cardParagraphFontStyle,
+} from '../../theme/element-styles/textStyles';
 import {SwipeableRemovalContainer} from '../shared/SwipeableRemovalContainer';
 
 type Props = {
@@ -18,9 +22,10 @@ export const ArticleItem = ({article, remove, navigate}: Props) => {
     <SwipeableRemovalContainer action={() => remove(objectID)}>
       <TouchableOpacity onPress={() => navigate(story_url || '')}>
         <View style={styles.container}>
-          <Text style={styles.text}>{author}</Text>
-          <Text>{title || story_title}</Text>
-          <Text>{epochToShortDate(created_at_i)}</Text>
+          <Text style={styles.title}>{title || story_title}</Text>
+          <Text style={styles.info}>
+            {author} - {epochToShortDate(created_at_i)}
+          </Text>
         </View>
       </TouchableOpacity>
     </SwipeableRemovalContainer>
@@ -28,6 +33,17 @@ export const ArticleItem = ({article, remove, navigate}: Props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {backgroundColor: 'white'},
-  text: {color: 'black'},
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingLeft: 18,
+    paddingRight: 35,
+    paddingVertical: 18,
+    rowGap: 3,
+  },
+  title: {...cardHeadingFontStyle},
+  infoContainer: {
+    flexDirection: 'row',
+  },
+  info: {...cardParagraphFontStyle},
 });
