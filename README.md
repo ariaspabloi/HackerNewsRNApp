@@ -1,12 +1,46 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# React Native Developer Test: Hacker News App
 
-# Getting Started
+## Overview
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+The Hacker News App is a mobile application designed to fetch, store, and display the latest news about mobile development. Utilizing API calls, this app presents news articles and allows users to read them even when offline by storing them locally. Additionally, users can remove news from their feed, with the app persisting a list of removed news to ensure they do not reappear. Articles can be read within the app using a WebView, providing a seamless reading experience.
 
-## Step 1: Start the Metro Server
+## Technologies Used
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- React Native
+
+## App Design
+
+The app leverages a clean architecture approach to ensure maintainability and scalability. Key design patterns and strategies include:
+
+- **MVVM (Model-View-ViewModel)**: Separates the UI from the business logic, facilitating easier testing and maintenance.
+- **Datasources and Repository Pattern**: Abstracts the data layer to provide a clean API for data access to the rest of the application.
+- **Use Cases**: Encapsulates business logic in discrete units, making them easily reusable and testable.
+- **Singleton Usage**: Ensures a class has only one instance and provides a global point of access to it.
+- **Custom Errors**: Enhances error handling by defining application-specific error types.
+
+## Features
+
+- **Infinite Scroll**: Allows users to continuously scroll through news articles without interruption.
+- **Local Storage**: Stores news articles locally for offline reading.
+- **API Calls**: Fetches news articles from the internet.
+- **WebView**: Enables reading of news articles within the app for a seamless experience.
+- **Slide to Remove**: Users can easily remove articles from their feed with a simple swipe gesture.
+
+## Installation
+
+To get started with the Hacker News App, follow these steps:
+
+## Step 1: Clone the repository & Start the Metro Server
+
+First, clone the repository and install dependencies
+
+```bash
+git clone https://github.com/ariaspabloi/HackerNewsRNApp.git
+cd HackerNewsRNApp
+npm i
+```
+
+Then you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
 To start Metro, run the following command from the _root_ of your React Native project:
 
@@ -45,35 +79,3 @@ yarn ios
 If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
