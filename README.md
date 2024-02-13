@@ -4,6 +4,8 @@
 
 The Hacker News App is a mobile application designed to fetch, store, and display the latest news about mobile development. Utilizing API calls, this app presents news articles and allows users to read them even when offline by storing them locally. Additionally, users can remove news from their feed, with the app persisting a list of removed news to ensure they do not reappear. Articles can be read within the app using a WebView, providing a seamless reading experience.
 
+[image-1.png](https://postimg.cc/BLjxMCJ6)
+
 ## Technologies Used
 
 - React Native
