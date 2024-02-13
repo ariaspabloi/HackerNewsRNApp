@@ -12,6 +12,12 @@ apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
  */
+
+ // allow create apk without server
+project.ext.react = [
+    bundleInDebug: true,
+]
+
 react {
     /* Folders */
     //   The root of your project, i.e. where "package.json" lives. Default is '..'
