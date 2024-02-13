@@ -4,15 +4,15 @@ import {ActivityIndicator, StyleSheet, View} from 'react-native';
 export const LoadingSpin = () => {
   return (
     <View style={styles.container}>
-      <ActivityIndicator color="green" size={100} />
+      <ActivityIndicator color="green" size="large" />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
   },
 });
