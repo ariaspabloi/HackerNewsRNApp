@@ -24,6 +24,7 @@ class ArticleRepository {
         article => !removedIds.has(article.objectID),
       );
       articles = articlesResponse.map(article => this.transform(article));
+      articles.sort((a, b) => b.created_at_i - a.created_at_i);
       this.local.setArticles(articles);
     } catch (error) {
       articles = await this.local.getArticles();
