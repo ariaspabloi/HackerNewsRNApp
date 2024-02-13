@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Article} from '../../../domain/entities/article';
-import epochToShortDate from '../../../utils/epochToShortDate';
+import epochToShortDate from '../../utils/epochToShortDate';
 import {primary} from '../../theme/colors';
 import {
   cardHeadingFontStyle,
