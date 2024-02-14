@@ -1,8 +1,9 @@
-import axiosInstance from '../axiosInstance';
-import {HackerNewsResponse} from '../entities/hnApiResponses';
-import {MOBILE_NEWS_QUERY} from '../utils/api';
+import axiosInstance from '../../axiosInstance';
+import {HackerNewsResponse} from '../../entities/hnApiResponses';
+import {MOBILE_NEWS_QUERY} from '../../utils/api';
+import IArticleRemoteDataSource from './IArticleRemoteDataSource';
 
-class ArticleRemoteDataSource {
+class ArticleRemoteDataSource implements IArticleRemoteDataSource {
   async getArticles(): Promise<HackerNewsResponse> {
     const response = await axiosInstance.get<HackerNewsResponse>(
       MOBILE_NEWS_QUERY,

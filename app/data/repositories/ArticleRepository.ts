@@ -2,14 +2,15 @@ import {Article} from '../../domain/entities/article';
 import {
   ArticleLocalDataSourceType,
   articleLocalDataSource,
-} from '../dataSources/ArticleLocalDataSource';
+} from '../dataSources/local/ArticleLocalDataSource';
 import {
   ArticleRemoteDataSourceType,
   articleRemoteDataSource,
-} from '../dataSources/ArticleRemoteDataSource';
+} from '../dataSources/remote/ArticleRemoteDataSource';
 import {ArticleResponse} from '../entities/hnApiResponses';
+import IArticleRepository from './IArticleRepository';
 
-class ArticleRepository {
+class ArticleRepository implements IArticleRepository {
   constructor(
     private readonly remote: ArticleRemoteDataSourceType,
     private readonly local: ArticleLocalDataSourceType,

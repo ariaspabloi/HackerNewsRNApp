@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Article} from '../../domain/entities/article';
-import {STORAGE_KEYS} from '../constants/storageKeys';
+import {Article} from '../../../domain/entities/article';
+import {STORAGE_KEYS} from '../../constants/storageKeys';
+import IArticleLocalDataSource from './IArticleLocalDataSource';
 
-class ArticleLocalDataSource {
+class ArticleLocalDataSource implements IArticleLocalDataSource {
   async setArticles(articles: Article[]) {
     try {
       await AsyncStorage.setItem(
