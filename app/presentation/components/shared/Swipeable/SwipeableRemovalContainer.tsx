@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 
 import {StyleSheet, View} from 'react-native';
 import {Swipeable, TouchableOpacity} from 'react-native-gesture-handler';
@@ -13,7 +13,7 @@ type Props = {
 
 export const SwipeableRemovalContainer = ({action, children}: Props) => {
   const swipeableRef = useRef<Swipeable>(null);
-  const renderActions = () => {
+  const renderActions = useCallback(() => {
     return (
       <View style={styles.container}>
         <TouchableOpacity
@@ -26,7 +26,7 @@ export const SwipeableRemovalContainer = ({action, children}: Props) => {
         </TouchableOpacity>
       </View>
     );
-  };
+  }, [action, swipeableRef]);
 
   return (
     <SwipeableContainer

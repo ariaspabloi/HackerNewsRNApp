@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Swipeable} from 'react-native-gesture-handler';
 
 type Props = {
@@ -32,11 +32,14 @@ export const SwipeableContainer = ({
     };
   }
 
-  const onSwipeableOpen = (swipeDirection: Direction) => {
-    if (swipeDirection === direction) {
-      action();
-    }
-  };
+  const onSwipeableOpen = useCallback(
+    (swipeDirection: Direction) => {
+      if (swipeDirection === direction) {
+        action();
+      }
+    },
+    [action, direction],
+  );
 
   return (
     <Swipeable
