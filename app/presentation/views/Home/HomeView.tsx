@@ -44,8 +44,9 @@ export const HomeView = ({navigation}: Props) => {
     [navigation],
   );
 
-  const onScrollUpAction = () =>
+  const onScrollUpAction = useCallback(() => {
     flatListRef.current?.scrollToOffset({animated: true, offset: 0});
+  }, []);
 
   const renderItem = useCallback(
     ({item}: {item: Article}) => (

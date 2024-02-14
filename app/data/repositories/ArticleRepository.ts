@@ -41,6 +41,7 @@ class ArticleRepository implements IArticleRepository {
       this.local.saveRemovedArticlesIds(removedIds);
     } catch (error) {
       console.log('error adding removing id', error);
+      throw error;
     }
   }
 
